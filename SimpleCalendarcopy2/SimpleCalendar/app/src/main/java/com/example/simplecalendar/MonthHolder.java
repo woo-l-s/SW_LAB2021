@@ -1,0 +1,34 @@
+package com.example.simplecalendar;
+
+import android.view.View;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class MonthHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+    public final TextView dayOfMonth;
+    public View[] borders;
+    public ConstraintLayout layout;
+    private final MonthDisplay.OnItemListener onItemListener;
+
+    public MonthHolder(@NonNull View itemView, MonthDisplay.OnItemListener onItemListener)
+    {
+        super(itemView);
+        dayOfMonth = itemView.findViewById(R.id.dayNumber);
+        layout = itemView.findViewById(R.id.monthCell);
+        borders = new View[4];
+        borders[0] = itemView.findViewById(R.id.cellBorder1);
+        borders[1] = itemView.findViewById(R.id.cellBorder2);
+        borders[2] = itemView.findViewById(R.id.cellBorder3);
+        borders[3] = itemView.findViewById(R.id.cellBorder4);
+        this.onItemListener = onItemListener;
+        itemView.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View view)
+    {
+        onItemListener.onItemClick(getAdapterPosition(), (String) dayOfMonth.getText());
+    }
+}
